@@ -2,7 +2,7 @@
 
 ## 系统概要
 
-- JDK 11
+- JDK 17
 - Spring Boot 3.2.2
 - MySQL 8
 
