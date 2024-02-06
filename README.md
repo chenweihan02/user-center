@@ -16,31 +16,15 @@
 - 根据id删除用户
 
 
-## 数据库设计
+- [x] 接口请求测试成功
 
-```mysql
--- auto-generated definition
-create table user
-(
-    id           bigint auto_increment comment '主键'
-        primary key,
-    userAccount  varchar(255)                       null comment '登录账号',
-    username     varchar(255)                       null comment '昵称',
-    avatarUrl    varchar(255)                       null comment '头像',
-    userPassword varchar(255)                       null comment '密码',
-    gender       tinyint                            null comment '性别',
-    phone        varchar(255)                       null comment '电话',
-    email        varchar(255)                       null comment '邮箱',
-    userStatus   int                                null comment '用户状态 0:不正常 1:正常',
-    role         int      default 0                 null comment '0 - 普通用户 1 - 管理员',
-    createTime   datetime default CURRENT_TIMESTAMP null comment '创建时间',
-    updateTime   datetime default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP comment '更新时间',
-    isDelete     tinyint  default 0                 null comment '是否删除'
-);
-```
-
-
-
+- [ ] 使用 Redis 存储用户登录的分布式 Session，实现多机用户登录状态同步
+- [ ] 支持管理员批量导入用户、校验用户信息功能​
+- [ ] 支持上传用户头像，并进行压缩校验​
+- [ ] 支持使用更多复杂的组合条件来查询用户，或者使用 Elasticsearch 更灵活地检索用户信息​
+- [ ] 使用 RBAC 权限管理设计，给不同的用户分配不同的权限，实现复杂的权限管理​
+- [ ] 通过 set-cookie 父域名的方式，使得用户 cookie 能够在多个同父域名子系统间共享，实现单点登录（也可以使用 OAuth2、JWT Token 等方式）​
+- [ ] 后端使用 AOP 或者 Filter 实现全局请求拦截器，统一去判断用户权限、统一记录请求日志等
 
 
 

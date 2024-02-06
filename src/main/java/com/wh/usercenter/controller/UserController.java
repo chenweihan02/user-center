@@ -5,17 +5,16 @@ import com.wh.usercenter.common.BaseResponse;
 import com.wh.usercenter.common.ErrorCode;
 import com.wh.usercenter.common.ResultUtils;
 import com.wh.usercenter.exception.BusinessException;
-import com.wh.usercenter.mapper.UserMapper;
 import com.wh.usercenter.model.User;
 import com.wh.usercenter.model.request.UserLoginRequest;
 import com.wh.usercenter.model.request.UserRegisterRequest;
 import com.wh.usercenter.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +30,7 @@ import static com.wh.usercenter.constants.UserConstant.USER_LOGIN_STATE;
 
 @RestController
 @RequestMapping("user")
+@Slf4j
 public class UserController {
 
     @Resource
@@ -129,7 +129,7 @@ public class UserController {
      * @return
      */
     @PostMapping("search")
-    public BaseResponse<List<User>> search(@RequestBody String username, HttpServletRequest request) {
+    public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
 
         //判断是否有权限查询
         if (!isAdmin(request)) {
@@ -149,21 +149,21 @@ public class UserController {
     /**
      * 删除用户
      *
-     * @param id
+     * @param userId
      * @param request
      * @return
      */
     @PostMapping("delete")
-    public BaseResponse<Boolean> delete(@RequestBody long id, HttpServletRequest request) {
+    public BaseResponse<Boolean> deleteUser(long userId, HttpServletRequest request) {
         //判断是否有权限查询
         if (!isAdmin(request)) {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
 
-        if (id <= 0) {
+        if (userId <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        boolean result = userService.removeById(id);
+        boolean result = userService.removeById(userId);
         return ResultUtils.success(result);
     }
 
