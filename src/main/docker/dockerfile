@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk
+VOLUME /tmp/tomcat
+ADD user-center-0.0.1-SNAPSHOT.jar user-center.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/user-center.jar"]
